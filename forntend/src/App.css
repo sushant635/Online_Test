@@ -1,0 +1,8 @@
+.App {
+  text-align: center;
+}
+
+#correct_ans{
+  display: none;
+  color:green;
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+    <script>
+        $(document).ready(function(){
+            $("#but1").click(function(){
+                $(".rb").show();
+                $(".rb").attr("disabled",true)
+            })
+        })
+        function getanswers(){
+            document.getElementById("UserAnswers").innerHTML = "";
+            var e = document.getElementsByTagName('input');
+            for (i = 0; i < e.length; i++) {
+            if (e[i].type == "radio") {
+                if (e[i].checked) {
+                document.getElementById("UserAnswers").innerHTML += "Q" + e[i].name + "Answer you selected is :" + e[i].value + "<br/>";
+                }
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+    <div style="padding-left: 30px;">
+        <h1>MAC Question</h1>
+        <hr>
+        
+        
+    {% for result in Exam %}
+          
+        <table>
+            <tr>
+                <td>{{ result.id }})  {{ result.question }} ?</td>
+            </tr>
+            <tr>
+                <td><input type="radio" id="option1" name="{{ result.id }}" class="rb" value="{{ result.option1 }}">{{ result.option1 }}</td>
+            </tr>
+            <tr>
+                <td><input type="radio" id="option1" name="{{ result.id }}" class="rb" value="{{ result.option2 }}">{{ result.option2 }}</td>
+            </tr>
+            <tr>
+                <td><input type="radio" id="option1" name="{{ result.id }}" class="rb" value="{{ result.option3 }}">{{ result.option3 }}</td>
+            </tr>
+            <tr>
+                <td><input type="radio" id="option1" name="{{ result.id }}" class="rb" value="{{ result.option4 }}">{{ result.option4 }}</td>
+            </tr>
+            <tr>
+                <td><label style="display: none; color:green"  id="correct_ans" class="rb"><b>{{ result.correct_ans }}</b></label></td>
+            </tr>
+        </table>
+        <hr>
+    {% endfor %}
+</div>
+<div style="padding-left: 30px;">
+    <h1>Short Awnser Question</h1>
+    <hr>
+    {% for s in Short  %}
+        <table>
+            <tr>
+                <td>{{ s.id }}) {{s.question}}</td>
+            </tr>
+            <tr>
+                <td><input type="text" style="background: none; border:none; border-bottom: 1px solid black" value="{{ s.answer }}"> {{ s.answer }}</td>
+            </tr>
+        </table>
+      
+    {% endfor %}
+    <hr>
+</div>
+    <br>
+    
+<div style="padding-left: 30px;">  
+    <input type="submit" id="but1" value="Submit" onclick="getanswers()">
+    <b id="UserAnswers"></b>
+    <hr>
+</div>
+</body>
+</html>
